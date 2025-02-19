@@ -1,5 +1,5 @@
 class User:
-    def __init__(self, user_id, name, surname, email, password, birthday):
+    def __init__(self, user_id, name, surname, birthday, email=None, password=None):
         self.user_id = user_id
         self.name = name
         self.surname = surname
@@ -7,41 +7,12 @@ class User:
         self.password = password
         self.birthday = birthday
 
+    def get_details(self):
+        return f"Name: {self.name}\nSurname: {self.surname}\nID: {self.user_id}\nBirthday: {self.birthday}\nEmail: {self.email}\nPassword: {self.password}"
 
-class UserService:
+    def get_age(self):
+        from datetime import datetime
+        from dateutil.relativedelta import relativedelta
 
-    users = {}
-
-    @classmethod
-    def add_user(cls, user):
-        UserService.users[user.user_id] = user
-
-    @classmethod
-    def find_user(cls, user_id):
-        user = UserService.users.get(user_id, "Not Found")
-        return user
-    
-    @classmethod
-    def delete_user(cls, user_id):
-        if UserService.find_user(user_id) == "Not Found":
-            print("Deletion failed. User with given id is not in the list")
-            return
-        else:
-            del UserService.users[user_id]
-
-    @classmethod
-    def update_user(cls, user_id, **user_update):
-        if UserService.find_user(user_id) == "Not Found":
-            print("Update failed. User with given id is not in the list")
-            return 
-        else:
-            for attr, value in user_update.items():
-                if hasattr(UserService.users[user_id], attr):
-                    setattr(UserService.users[user_id], attr, value)
-
-    @classmethod
-    def get_number(cls):
-        return len(UserService.users)
-
-class UserUtil:
-    pass
+        age = relativedelta(datetime.now(), self.birthday).years
+        return age
