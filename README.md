@@ -135,7 +135,7 @@ python -m unittest main.py
 
 ## UML Diagram 📊
 
-![UML Diagram](uml_diagram.png)
+![UML Diagram](UML_diagram.png)
 
 ## Installation 🛠️
 
